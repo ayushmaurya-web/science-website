@@ -163,7 +163,12 @@ function initForm(){
     try{
       const r=await fetch(EMAIL_CONFIG.scriptUrl,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(d)});
       const j=await r.json();
-      if(j.ok){ f.reset(); show("ok","Thank you! Your message has been sent."); } else show("err",j.message||"Message could not be sent.");
+     if(j.success === true){
+  f.reset();
+  show("ok","Thank you! Your message has been sent.");
+} else {
+  show("err",j.message || "Message could not be sent.");
+}
     }catch(err){ show("err","Message could not be sent. Check your connection and try again."); }
     busy=false; btn.disabled=false; btn.textContent="Send Message";
   });
